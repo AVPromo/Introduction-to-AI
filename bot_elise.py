@@ -12,11 +12,12 @@ text = open('bot_elise.txt', encoding='utf8').read()
 # Создание модели цепи Маркова
 text_model = markovify.Text(text, state_size=2)
 
+# обработка команды /start
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
     bot.reply_to(message, "Привет! Я Элиза. Чем могу помочь?")
 
-# @bot.message_handler(func=lambda message: True)
+# обработка текстовых сообщений
 @bot.message_handler(func=lambda message: not message.text.startswith('/'))
 def echo_all(message):
     response = generate_response(text_model, message.text)
